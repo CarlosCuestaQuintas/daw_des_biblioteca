@@ -30,6 +30,11 @@ public class DataLoader implements CommandLineRunner {
 		libroRepository.save(new Libro("El Elfo Oscuro", "RA Salvatore", "1", "Fantasía", 0));
 		libroRepository.save(new Libro("Horus, Señor de la Guerra", "Dan Abnett", "2", "Ciencia ficción", 2));
 		libroRepository.save(new Libro("API Rest con Spring para expertos", "Joaquín Precioso", "3", "Tecnología", 1));
+		libroRepository.save(new Libro("Diseño de interfaces web profesionales", "Andrés Piñeros", "4", "Tecnología", 1));
+		libroRepository.save(new Libro("Teoría del conocimiento", "Alejandro Llano", "5", "Filosofía", 1));
+		libroRepository.save(new Libro("Introducción a la vida devota", "San Francisco de Sales", "6", "Espiritualidad", 1));
+		libroRepository.save(new Libro("Harry Potter y la piedra filosofal", "JK Rowling", "7", "Juvenil", 1));
+		libroRepository.save(new Libro("La llamada de Cthulu", "HP Lovecraft", "8", "Terror", 1));
 		
 		// Inicialización de usuarios
 		usuarioRepository.save(new Usuario("Carlos", "ccq@ccq.es", "00000000A"));
