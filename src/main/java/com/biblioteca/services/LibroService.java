@@ -49,6 +49,7 @@ public class LibroService {
 			l.setAutor(libro.getAutor());
 			l.setIsbn(libro.getIsbn());
 			l.setCategoria(libro.getCategoria());
+			l.setEjemplaresDisponibles(libro.getEjemplaresDisponibles());
 			libroRepository.save(l);
 			return true;
 		}
