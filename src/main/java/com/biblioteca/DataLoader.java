@@ -34,7 +34,7 @@ public class DataLoader implements CommandLineRunner {
 		libroRepository.save(new Libro("Teoría del conocimiento", "Alejandro Llano", "5", "Filosofía", 1));
 		libroRepository.save(new Libro("Introducción a la vida devota", "San Francisco de Sales", "6", "Espiritualidad", 1));
 		libroRepository.save(new Libro("Harry Potter y la piedra filosofal", "JK Rowling", "7", "Juvenil", 1));
-		libroRepository.save(new Libro("La llamada de Cthulu", "HP Lovecraft", "8", "Terror", 1));
+		libroRepository.save(new Libro("La llamada de Cthulhu", "HP Lovecraft", "8", "Terror", 1));
 		
 		// Inicialización de usuarios
 		usuarioRepository.save(new Usuario("Carlos", "ccq@ccq.es", "00000000A"));
@@ -42,6 +42,9 @@ public class DataLoader implements CommandLineRunner {
 		
 		// Inicialización de préstamos
 		prestamoRepository.save(new Prestamo(1L, 1L));
+		prestamoRepository.save(new Prestamo(3L, 2L));
+		prestamoRepository.save(new Prestamo(4L, 1L));
+		prestamoRepository.save(new Prestamo(5L, 1L));
 	}
 
 }
