@@ -34,7 +34,7 @@ public class JwtProvider {
 			return true;
 		}
 		catch (Exception e) {
-			System.err.println("Error en validar token: " + e.getMessage());
+			System.out.println("Error en validar token: " + e.getMessage());
 			return false;
 		}
 	}
