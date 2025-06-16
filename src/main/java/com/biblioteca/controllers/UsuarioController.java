@@ -16,6 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.biblioteca.models.Usuario;
 import com.biblioteca.services.UsuarioService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 
 @RestController
@@ -25,12 +29,17 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService usuarioService;
 	
+	@Operation(summary = "Agregar un usuario")
 	@PostMapping
 	public ResponseEntity<?> crearUsuario(@RequestBody @Valid Usuario usuario) {
 		usuarioService.crearUsuario(usuario);
 		return ResponseEntity.ok("Usuario creado correctamente: " + usuario.getNombre());
 	}
 	
+	@Operation(summary = "Listar todos los usuarios")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Usuarios encontrados", content = { @Content(mediaType = "application/list") })
+	})
 	@GetMapping
 	public ResponseEntity<?> getUsuarios() {
 		List<Usuario> usuarios = usuarioService.getUsuarios();
@@ -38,6 +47,11 @@ public class UsuarioController {
 		else return ResponseEntity.ok("No hay usuarios");
 	}
 	
+	@Operation(summary = "Buscar un usuario por ID")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Usuario encontrado", content = { @Content(mediaType = "application/json") }),
+			@ApiResponse(responseCode = "200", description = "Usuario no encontrado")
+	})
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getUsuario(@PathVariable Long id) {
 		Usuario usuario = usuarioService.getUsuario(id);
@@ -45,12 +59,14 @@ public class UsuarioController {
 		else return ResponseEntity.ok("Usuario no encontrado");
 	}
 	
+	@Operation(summary = "Actualizar un usuario")
 	@PutMapping("/{id}")
 	public ResponseEntity<?> actualizarUsuario(@RequestBody @Valid Usuario usuario) {
 		if (usuarioService.actualizarUsuario(usuario)) return ResponseEntity.ok("Usuario actualizado correctamente: " + usuario.getNombre());
 		else return ResponseEntity.ok("Usuario no encontrado");
 	}
 	
+	@Operation(summary = "Eliminar un usuario")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> eliminarUsuario(@PathVariable Long id) {
 		if (usuarioService.eliminarUsuario(id)) return ResponseEntity.ok("Usuario eliminado");

@@ -18,6 +18,7 @@ import com.biblioteca.exceptions.UsuarioNotFoundException;
 import com.biblioteca.models.Prestamo;
 import com.biblioteca.services.PrestamoService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 
 @RestController
@@ -27,21 +28,7 @@ public class PrestamoController {
 	@Autowired
 	private PrestamoService prestamoService;
 	
-	/*
-	POST /api/prestamos - Crear un préstamo
-	GET /api/prestamos - Obtener todos los préstamos
-	GET /api/prestamos/{id} - Obtener un préstamo por ID
-	GET /api/prestamos/usuario/{idUsuario} - Obtener préstamos de un usuario
-	GET /api/prestamos/activos - Obtener préstamos activos
-	PUT /api/prestamos/{id}/devolver - Marcar un préstamo como devuelto
-	 */
-	
-	/*@PostMapping
-	public ResponseEntity<?> crearPrestamo(@RequestBody @Valid Prestamo prestamo) {
-		if (prestamoService.crearPrestamo(prestamo)) return ResponseEntity.ok("Préstamo creado");
-		else return ResponseEntity.ok("No hay existencias de ese libro");
-	}*/
-	
+	@Operation(summary = "Agregar un préstamo")
 	@PostMapping
 	public ResponseEntity<?> crearPrestamo(@RequestBody @Valid Prestamo prestamo) {
 		switch (prestamoService.crearPrestamo(prestamo)) {
@@ -58,6 +45,7 @@ public class PrestamoController {
 		}
 	}
 	
+	@Operation(summary = "Listar todos los préstamos")
 	@GetMapping
 	public ResponseEntity<?> getPrestamos() {
 		// TODO: considerar que no hay préstamos
@@ -67,6 +55,7 @@ public class PrestamoController {
 		else return ResponseEntity.ok("No hay préstamos registrados");
 	}
 	
+	@Operation(summary = "Buscar un préstamo por ID")
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getPrestamo(@PathVariable Long id) {
 		// TODO: considerar que no existe el préstamo y devolver otra cosa
@@ -76,7 +65,7 @@ public class PrestamoController {
 		else return ResponseEntity.ok("Préstamo no encontrado");
 	}
 	
-	// TODO: ¿qué pasa si no existe el usuario?
+	@Operation(summary = "Listar préstamos de un usuario por su ID")
 	@GetMapping("/usuario/{id}")
 	public ResponseEntity<?> getPrestamosPorUsuario(@PathVariable Long id) {
 		// TODO: utilizar la id para comprobar si existe el usuario primero (probablemente sea cosa de tocar el servicio)
@@ -86,6 +75,7 @@ public class PrestamoController {
 		else return ResponseEntity.ok("Este usuario no tiene préstamos");
 	}
 	
+	@Operation(summary = "Listar los préstamos activos")
 	@GetMapping("/activos")
 	public ResponseEntity<?> getPrestamosActivos() {
 		List<Prestamo> prestamos = prestamoService.getPrestamosActivos();
@@ -93,6 +83,7 @@ public class PrestamoController {
 		else return ResponseEntity.ok("No hay préstamos activos");
 	}
 	
+	@Operation(summary = "Marcar un préstamo como devuelto")
 	@PutMapping("/{id}/devolver")
 	public ResponseEntity<?> devolverPrestamo(@PathVariable Long id) {
 		if (prestamoService.devolverPrestamo(id)) return ResponseEntity.ok("Préstamo devuelto");

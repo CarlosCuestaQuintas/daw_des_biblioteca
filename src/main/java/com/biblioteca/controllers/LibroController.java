@@ -30,14 +30,14 @@ public class LibroController {
 	@Autowired
 	private LibroService libroService;
 	
+	@Operation(summary = "Agregar un libro")
 	@PostMapping
 	public ResponseEntity<?> crearLibro(@RequestBody @Valid Libro libro) {
 		libroService.crearLibro(libro);
 		return ResponseEntity.ok("Libro creado correctamente: " + libro.getTitulo());
 	}
 	
-	// TODO: revisar y completar esto o quitarlo por completo
-	@Operation(summary = "Listar todos los libros")
+	@Operation(summary = "Listar todos los libros, con o sin filtros de título y autor")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Libros encontrados", content = { @Content(mediaType = "application/list") })
 	})
@@ -74,6 +74,7 @@ public class LibroController {
 		}
 	}
 	
+	@Operation(summary = "Buscar un libro por ID")
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getLibro(@PathVariable Long id) {
 		// TODO: considerar que no existe el usuario y devolver otra cosa
@@ -84,12 +85,14 @@ public class LibroController {
 		else return ResponseEntity.ok("Libro no encontrado");
 	}
 	
+	@Operation(summary = "Actualizar un libro")
 	@PutMapping("/{id}")
 	public ResponseEntity<?> actualizarLibro(@PathVariable Long id, @RequestBody @Valid Libro libro) {
 		if (libroService.actualizarLibro(libro)) return ResponseEntity.ok("Libro actualizado correctamente " + libro.getTitulo());
 		else return ResponseEntity.ok("Libro no encontrado");
 	}
 	
+	@Operation(summary = "Eliminar un libro")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> eliminarLibro(@PathVariable Long id) {
 		if (libroService.eliminarLibro(id)) return ResponseEntity.ok("Libro eliminado");
